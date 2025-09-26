@@ -1,5 +1,12 @@
 ﻿#include "framework.h"
 #include "Client.h"
+#include <Engine/Test.h>
+
+#ifdef _DEBUG
+#pragma comment(lib, "Engine//Engine_d.lib")
+#else
+#pragma comment(lib, "Engine//Engine.lib")
+#endif
 
 HINSTANCE hInst;
 
@@ -12,6 +19,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+    int value = Add(10, 20);
+
     MyRegisterClass(hInstance);
 
     hInst = hInstance;
