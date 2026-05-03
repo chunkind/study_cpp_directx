@@ -16,7 +16,6 @@
     <ClInclude Include="pch.h">
       <Filter>Default</Filter>
     </ClInclude>
-    <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -25,6 +24,5 @@
     <ClCompile Include="pch.cpp">
       <Filter>Default</Filter>
     </ClCompile>
-    <ClCompile Include="Test.cpp" />
   </ItemGroup>
 </Project>

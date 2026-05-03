@@ -19,7 +19,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    int value = Add(10, 20);
+    //old
+    //int value = Add(10, 20);
 
     MyRegisterClass(hInstance);
 
