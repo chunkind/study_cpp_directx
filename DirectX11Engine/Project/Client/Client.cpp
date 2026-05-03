@@ -20,9 +20,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    //old
-    //int value = Add(10, 20);
-
     MyRegisterClass(hInstance);
 
     hInst = hInstance;
@@ -38,8 +35,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     ShowWindow(hWnd, true);
     UpdateWindow(hWnd);
 
-    //new
-    // CEngine 객체 초기화
     CEngine* pEngine = CEngine::GetInst();
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
@@ -64,9 +59,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         }
     }
-
-    //new
-    CEngine::Destroy();
 
     return (int) msg.wParam;
 }
