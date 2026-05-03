@@ -23,14 +23,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MyRegisterClass(hInstance);
 
-    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
+    hInst = hInstance;
     
-    // 커널 오브젝트
-    // 윈도우 생성 후 핸들값 반환
     HWND hWnd = CreateWindowW(L"Test", L"MyGame", WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
     
-    // 윈도우 생성에 문제가 있으면 종료
     if (!hWnd)
     {
         return FALSE;
@@ -39,15 +36,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     ShowWindow(hWnd, true);
     UpdateWindow(hWnd);
 
-    // 단축키 테이블
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
     MSG msg;
 
-    // 윈도우 메세지가 없으면 반환되지 않음 :: GetMessage
-    // 메세지가 없더라도 리턴되야 한다      :: PeekMessage
     while (true)
     {
-        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) // 꺼내옴과 동시에 삭제한다.
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (WM_QUIT == msg.message)
                 break;
