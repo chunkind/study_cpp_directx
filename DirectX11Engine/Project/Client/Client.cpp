@@ -1,6 +1,8 @@
 ﻿#include "framework.h"
 #include "Client.h"
 
+#include <Engine/CEngine.h>
+
 #ifdef _DEBUG
 #pragma comment(lib, "Engine//Engine_d.lib")
 #else
@@ -36,6 +38,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     ShowWindow(hWnd, true);
     UpdateWindow(hWnd);
 
+    //new
+    // CEngine 객체 초기화
+    CEngine* pEngine = CEngine::GetInst();
+
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
     MSG msg;
 
@@ -58,6 +64,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         }
     }
+
+    //new
+    CEngine::Destroy();
 
     return (int) msg.wParam;
 }
