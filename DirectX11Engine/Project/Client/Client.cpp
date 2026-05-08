@@ -35,9 +35,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     ShowWindow(hWnd, true);
     UpdateWindow(hWnd);
 
-    //old
-    //CEngine* pEngine = CEngine::GetInst();
-    //new: 객체 초기화
     if (FAILED(CEngine::GetInst()->init(hWnd, POINT{1280, 768})))
     {
         MessageBox(nullptr, L"엔진 초기화 실패", L"엔진 초기화 실패", MB_OK);
@@ -84,11 +81,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    //old
-    //wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_CLIENT);
-    //new: 메뉴바 삭제
     wcex.lpszMenuName   = nullptr;
-
     wcex.lpszClassName  = L"Test";
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
