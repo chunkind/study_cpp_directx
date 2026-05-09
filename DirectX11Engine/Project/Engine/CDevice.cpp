@@ -1,30 +1,44 @@
 #include "pch.h"
 #include "CDevice.h"
 
+//old: 스마트포인터로 인해 필요가 없어졌다.
+//CDevice::CDevice()
+//	: m_hMainWnd(nullptr)
+//	, m_RenderResolution{}
+//	, m_Device(nullptr)
+//	, m_Context(nullptr)
+//	, m_SwapChain(nullptr)
+//	, m_RenderTargetTex(nullptr)
+//	, m_RTV(nullptr)
+//	, m_DepthStencilTex(nullptr)
+//	, m_DSV(nullptr)
+//{
+//
+//}
+//new
 CDevice::CDevice()
 	: m_hMainWnd(nullptr)
 	, m_RenderResolution{}
-	, m_Device(nullptr)
-	, m_Context(nullptr)
-	, m_SwapChain(nullptr)
-	, m_RenderTargetTex(nullptr)
-	, m_RTV(nullptr)
-	, m_DepthStencilTex(nullptr)
-	, m_DSV(nullptr)
 {
 
 }
 
+//old: 스마트포인터로 인해 필요없어짐
+//CDevice::~CDevice()
+//{
+//	m_Device->Release();
+//	m_Context->Release();
+//	m_SwapChain->Release();
+//	m_RenderTargetTex->Release();
+//
+//	m_RTV->Release();
+//	m_DepthStencilTex->Release();
+//	m_DSV->Release();
+//}
+//new
 CDevice::~CDevice()
 {
-	m_Device->Release();
-	m_Context->Release();
-	m_SwapChain->Release();
-	m_RenderTargetTex->Release();
 
-	m_RTV->Release();
-	m_DepthStencilTex->Release();
-	m_DSV->Release();
 }
 
 int CDevice::init(HWND _hWnd, POINT _Resolution)
@@ -40,9 +54,16 @@ int CDevice::init(HWND _hWnd, POINT _Resolution)
 
 	D3D_FEATURE_LEVEL level = D3D_FEATURE_LEVEL_11_0;
 
-	D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE
+	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE
 		, nullptr, iFlag, nullptr, 0, D3D11_SDK_VERSION
-		, &m_Device, &level, &m_Context);
+		//old
+		//, &m_Device, &level, &m_Context)))
+		//new
+		, m_Device.GetAddressOf(), &level, m_Context.GetAddressOf())))
+
+	{
+		return E_FAIL;
+	}
 
 	if (FAILED(CreateSwapchain()))
 	{
@@ -80,20 +101,34 @@ int CDevice::CreateSwapchain()
 
 	Desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	
-	IDXGIDevice* pDXGIDevice = nullptr;
-	IDXGIAdapter* pAdapter = nullptr;
-	IDXGIFactory* pFactory = nullptr;
+	//old
+	//IDXGIDevice* pDXGIDevice = nullptr;
+	//IDXGIAdapter* pAdapter = nullptr;
+	//IDXGIFactory* pFactory = nullptr;
+	//new
+	ComPtr<IDXGIDevice> pDXGIDevice = nullptr;
+	ComPtr<IDXGIAdapter> pAdapter = nullptr;
+	ComPtr<IDXGIFactory> pFactory = nullptr;
 
-	m_Device->QueryInterface(__uuidof(IDXGIDevice), (void**)&pDXGIDevice);
-	pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&pAdapter);
-	pAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&pFactory);
+	//old
+	//m_Device->QueryInterface(__uuidof(IDXGIDevice), (void**)&pDXGIDevice);
+	//pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&pAdapter);
+	//pAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&pFactory);
+	//new
+	m_Device->QueryInterface(__uuidof(IDXGIDevice), (void**)pDXGIDevice.GetAddressOf());
+	pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), (void**)pAdapter.GetAddressOf());
+	pAdapter->GetParent(__uuidof(IDXGIFactory), (void**)pFactory.GetAddressOf());
 
-	if (FAILED(pFactory->CreateSwapChain(m_Device, &Desc, &m_SwapChain)))
+	//old
+	//if (FAILED(pFactory->CreateSwapChain(m_Device, &Desc, &m_SwapChain)))
+	//new
+	if (FAILED(pFactory->CreateSwapChain(m_Device.Get(), &Desc, m_SwapChain.GetAddressOf())))
 		return E_FAIL;
 
-	pDXGIDevice->Release();
-	pAdapter->Release();
-	pFactory->Release();
+	//old
+	//pDXGIDevice->Release();
+	//pAdapter->Release();
+	//pFactory->Release();
 
 	return S_OK;
 }
@@ -101,10 +136,16 @@ int CDevice::CreateSwapchain()
 int CDevice::CreateView()
 {
 	// 1. RenderTarget Texture를 스왚체인으로부터 가져오기
-	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&m_RenderTargetTex);
+	//old
+	//m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&m_RenderTargetTex);
+	//new
+	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)m_RenderTargetTex.GetAddressOf());
 
 	// 2. RenderTargetView 를 생성한다.
-	m_Device->CreateRenderTargetView(m_RenderTargetTex, nullptr, &m_RTV);
+	//old
+	//m_Device->CreateRenderTargetView(m_RenderTargetTex, nullptr, &m_RTV);
+	//new
+	m_Device->CreateRenderTargetView(m_RenderTargetTex.Get(), nullptr, m_RTV.GetAddressOf());
 
 	// 3. DepthStencil 용 Texture 를 제작
 	D3D11_TEXTURE2D_DESC Desc = {};
@@ -124,10 +165,13 @@ int CDevice::CreateView()
 	m_Device->CreateTexture2D(&Desc, nullptr, &m_DepthStencilTex);
 
 	// 4. DepthStencil View
-	m_Device->CreateDepthStencilView(m_DepthStencilTex, nullptr, &m_DSV);
+	//old
+	//m_Device->CreateDepthStencilView(m_DepthStencilTex, nullptr, &m_DSV);
+	//new
+	m_Device->CreateDepthStencilView(m_DepthStencilTex.Get(), nullptr, m_DSV.GetAddressOf());
 
 	// RenderTarget 과  DepthStencilTarget 을 출력으로 지정한다.
-	m_Context->OMSetRenderTargets(1, &m_RTV, m_DSV);
+	m_Context->OMSetRenderTargets(1, m_RTV.GetAddressOf(), m_DSV.Get());
 
 	return S_OK;
 }
