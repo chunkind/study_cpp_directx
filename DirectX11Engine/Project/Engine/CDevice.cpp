@@ -19,7 +19,6 @@ CDevice::~CDevice()
 {
 	m_Device->Release();
 	m_Context->Release();
-	//new
 	m_SwapChain->Release();
 }
 
@@ -40,8 +39,6 @@ int CDevice::init(HWND _hWnd, POINT _Resolution)
 		, nullptr, iFlag, nullptr, 0, D3D11_SDK_VERSION
 		, &m_Device, &level, &m_Context);
 
-	//new
-	// SwapChain 생성
 	if (FAILED(CreateSwapchain()))
 	{
 		return E_FAIL;
@@ -50,27 +47,14 @@ int CDevice::init(HWND _hWnd, POINT _Resolution)
 	return S_OK;
 }
 
-//new
 int CDevice::CreateSwapchain()
 {
-	// 스왑 체인 방식
-	// 1. 비트 블록 전송 모델 :: 데이터를 복사하여 전송 (프레임제한이 없다)
-	// DXGI_SWAP_EFFECT_DISCARD -> 화면 출력하고 버퍼에있는 내용 버린다.
-	// DXGI_SWAP_EFFECT_SEQUENTIAL
-
-	// 2. 대칭 이동 프레젠테이션 모델 :: 버퍼가2개 필요한다 복사가 아니라 포인터를 전달 (프레임이 고정된다)
-	// DXGI_SWAP_EFFECT_FLIP_DISCARD  -> 화면 출력하고 버퍼에있는 내용 버린다.
-	// DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL
-
 	DXGI_SWAP_CHAIN_DESC Desc = {};
 
-	// SwapChain 이 화면을 게시(Present) 할때 출력 목적지 윈도우
 	Desc.OutputWindow = m_hMainWnd;
 	Desc.Windowed = true;
 
-	// SwapChain 이 만들어질때 버퍼 옵션
 	Desc.BufferCount = 1;
-	//Desc.BufferCount = 2;
 	Desc.BufferDesc.Width = (UINT)m_RenderResolution.x;
 	Desc.BufferDesc.Height = (UINT)m_RenderResolution.y;
 	Desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -85,8 +69,7 @@ int CDevice::CreateSwapchain()
 	Desc.SampleDesc.Quality = 0;
 
 	Desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-	//Desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
-
+	
 	IDXGIDevice* pDXGIDevice = nullptr;
 	IDXGIAdapter* pAdapter = nullptr;
 	IDXGIFactory* pFactory = nullptr;

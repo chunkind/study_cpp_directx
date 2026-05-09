@@ -27,7 +27,6 @@ public:
 public:
 	int init(HWND _hWnd, POINT _Resolution);
 
-//new
 private:
 	int CreateSwapchain();
 
