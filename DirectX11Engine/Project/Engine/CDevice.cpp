@@ -20,10 +20,8 @@ CDevice::~CDevice()
 	m_Device->Release();
 	m_Context->Release();
 	m_SwapChain->Release();
-	//new
 	m_RenderTargetTex->Release();
 
-	//new
 	m_RTV->Release();
 	m_DepthStencilTex->Release();
 	m_DSV->Release();
@@ -51,7 +49,6 @@ int CDevice::init(HWND _hWnd, POINT _Resolution)
 		return E_FAIL;
 	}
 
-	//new
 	if (FAILED(CreateView()))
 	{
 		return E_FAIL;
@@ -101,7 +98,6 @@ int CDevice::CreateSwapchain()
 	return S_OK;
 }
 
-//new
 int CDevice::CreateView()
 {
 	// 1. RenderTarget Texture를 스왚체인으로부터 가져오기

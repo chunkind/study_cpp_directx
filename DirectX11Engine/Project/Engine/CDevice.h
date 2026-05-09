@@ -29,7 +29,6 @@ public:
 
 private:
 	int CreateSwapchain();
-	//new
 	int CreateView();
 
 private:
