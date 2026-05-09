@@ -5,11 +5,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="01. Header">
+      <UniqueIdentifier>{585c1bbd-f3a5-4162-8ad9-45b222a6d10b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Engine">
+      <UniqueIdentifier>{5489b155-d1da-4a75-8e35-8a663ab4701e}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Default">
       <UniqueIdentifier>{3ecdd2f0-2d53-4dbe-8abf-ff588a4b21b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Engine">
-      <UniqueIdentifier>{5489b155-d1da-4a75-8e35-8a663ab4701e}</UniqueIdentifier>
+    <Filter Include="03. Device">
+      <UniqueIdentifier>{fc0b03c3-d34e-4efb-8cb2-ba3a50565899}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -20,7 +26,13 @@
       <Filter>Default</Filter>
     </ClInclude>
     <ClInclude Include="CEngine.h">
-      <Filter>01. Engine</Filter>
+      <Filter>02. Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CDevice.h">
+      <Filter>03. Device</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -31,7 +43,10 @@
       <Filter>Default</Filter>
     </ClCompile>
     <ClCompile Include="CEngine.cpp">
-      <Filter>01. Engine</Filter>
+      <Filter>02. Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="CDevice.cpp">
+      <Filter>03. Device</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

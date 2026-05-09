@@ -6,7 +6,6 @@ private:
 	HWND m_hMainHwnd;
 	POINT m_Resolution;
 
-//new
 public:
 	int init(HWND _hWnd, POINT _Resolution);
 

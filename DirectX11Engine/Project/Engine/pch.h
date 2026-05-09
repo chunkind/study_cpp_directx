@@ -5,4 +5,7 @@
 
 #include <Windows.h>
 
+//new
+#include "global.h"
+
 #endif
