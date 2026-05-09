@@ -27,6 +27,10 @@ public:
 public:
 	int init(HWND _hWnd, POINT _Resolution);
 
+//new
+private:
+	int CreateSwapchain();
+
 private:
 	CDevice();
 	CDevice(const CDevice& _other) = delete;
