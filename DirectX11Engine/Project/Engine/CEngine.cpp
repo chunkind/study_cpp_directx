@@ -25,7 +25,6 @@ int CEngine::init(HWND _hWnd, POINT _Resolution)
 	return S_OK;
 }
 
-//new
 void CEngine::progress()
 {
 	// Level -> tick();
