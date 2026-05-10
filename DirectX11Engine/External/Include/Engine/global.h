@@ -1,6 +1,5 @@
 #pragma once
 
-//new
 #include <wrl.h>
 using namespace Microsoft::WRL;
 

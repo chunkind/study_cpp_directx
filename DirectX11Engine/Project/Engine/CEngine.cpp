@@ -24,3 +24,18 @@ int CEngine::init(HWND _hWnd, POINT _Resolution)
 
 	return S_OK;
 }
+
+//new
+void CEngine::progress()
+{
+	// Level -> tick();
+
+	float ClearColor[4] = { 0.3f, 0.3f, 0.3f, 1.f }; //Red
+	CDevice::GetInst()->ClearTarget(ClearColor);
+
+	// Level -> render();
+
+	CDevice::GetInst()->Present();
+
+	// SwapChain->Present();
+}

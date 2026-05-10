@@ -60,6 +60,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // Game Engine 실행
+            //new
+            // CEngine::progress() 한번 수행 ==> 1 프레임
+            CEngine::GetInst()->progress();
 
         }
     }

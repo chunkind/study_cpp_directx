@@ -26,6 +26,10 @@ public:
 
 public:
 	int init(HWND _hWnd, POINT _Resolution);
+	//new
+	void ClearTarget(float(&_ArrColor)[4]);
+	//new
+	void Present() { m_SwapChain->Present(0, 0); }
 
 private:
 	int CreateSwapchain();

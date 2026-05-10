@@ -57,6 +57,12 @@ int CDevice::init(HWND _hWnd, POINT _Resolution)
 	return S_OK;
 }
 
+//new
+void CDevice::ClearTarget(float(&_ArrColor)[4])
+{
+	m_Context->ClearRenderTargetView(m_RTV.Get(), _ArrColor);
+}
+
 int CDevice::CreateSwapchain()
 {
 	DXGI_SWAP_CHAIN_DESC Desc = {};
