@@ -34,6 +34,7 @@
     <ClInclude Include="CDevice.h">
       <Filter>03. Device</Filter>
     </ClInclude>
+    <ClInclude Include="Temp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -48,5 +49,6 @@
     <ClCompile Include="CDevice.cpp">
       <Filter>03. Device</Filter>
     </ClCompile>
+    <ClCompile Include="Temp.cpp" />
   </ItemGroup>
 </Project>
