@@ -43,22 +43,15 @@ int CDevice::init(HWND _hWnd, POINT _Resolution)
 		return E_FAIL;
 	}
 
-	//new
-	// ViewPort 설정
-	// 윈도우 화면에 보여질 영역을 설정
 	D3D11_VIEWPORT viewport = {};
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
 	viewport.Width = m_RenderResolution.x;
 	viewport.Height = m_RenderResolution.y;
 
-	//new
-	// 깊이 텍스쳐에 저장되는 깊이 Min, Max 지정
 	viewport.MinDepth = 0;
 	viewport.MaxDepth = 1;
 
-	//new
-	// ViewPort 정보 셋팅
 	m_Context->RSSetViewports(1, &viewport);
 
 	return S_OK;
