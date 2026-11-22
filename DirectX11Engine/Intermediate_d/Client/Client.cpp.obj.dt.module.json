@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "C:\\git\\study_cpp_directx\\DirectX11Engine\\Intermediate_d\\Client\\Client.obj",
+            "outputs": [
+                "C:\\git\\study_cpp_directx\\DirectX11Engine\\Intermediate_d\\Client\\Client.cpp.obj.dt.module.json",
+                "C:\\git\\study_cpp_directx\\DirectX11Engine\\Intermediate_d\\Client\\Client.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
